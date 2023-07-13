@@ -97,7 +97,7 @@ GPL-3.0 license
 
 ## 特别致谢
 
-(alcor / emoji-supply)[https://github.com/alcor/emoji-supply]
+[alcor / emoji-supply](https://github.com/alcor/emoji-supply)
 
 ## 支持作者
 
