@@ -57,13 +57,13 @@ Cactus 将需要辅助权限以完整运行：
 
 ### 方法一：手动点击触发
 
-用户先点击 Cactus 在任务栏中的图标，在下拉选单中点击“🌵 Get text from links!”，然后在延迟时间只内将光标移动到链接上，此时光标将从箭头形状变为手套形状，这表示已在链接可选区域之上。
+用户先点击 Cactus 在任务栏中的图标，在下拉选单中点击“🌵 Get text from links!”，然后在延迟时间之内将光标移动到链接上，此时光标将从箭头形状变为手套形状，这表示已在链接可选区域之上。
 
 在延迟时间达至之后，Cactus 将运行程序，弹出窗口，显示该链接内的文本，用户可以选择部分，或是修改后选择全部。
 
 ### 方法二：启动器快捷键触发
 
-用户可以使用 Alfred 或者 BetterTouchTool 等脚本工具来使上述过程自动化。上述可被归纳为两个动作，一是触发命令，二是移动鼠标。触发命令可由脚本自动弯成，用户只需将鼠标先移动到链接之上，然后再触发脚本，即可更快速地获取链接文本。Release 中自带“Cactus Keyword to Script.alfredworkflow”和“Show Cactus.applescript”两个文件，其中前者是 Alfred 的指令文件，若用户电脑已有 Alfred 软件，即可安装此指令使用（可在 Alfred 内设置全局快捷键）；后者是通用的 Applescript 脚本，用户需要在其习惯的启动器中设置此脚本的触发模式。
+用户可以使用 Alfred 或者 BetterTouchTool 等脚本工具来使上述过程自动化。上述可被归纳为两个动作，一是触发命令，二是移动鼠标。触发命令可由脚本自动完成，用户只需将鼠标先移动到链接之上，然后再触发脚本，即可更快速地获取链接文本。Release 中自带“Cactus Keyword to Script.alfredworkflow”和“Show Cactus.applescript”两个文件，其中前者是 Alfred 的指令文件，若用户电脑已有 Alfred 软件，即可安装此指令使用（可在 Alfred 内设置全局快捷键）；后者是通用的 Applescript 脚本，用户需要在其习惯的启动器中设置此脚本的触发模式。
 
 ### 方法三：第三方 Touch Bar
 
