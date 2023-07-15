@@ -1,4 +1,4 @@
-# 🌵Cactus: A macOS app to extract texts from links
+# 🌵Cactus: A macOS App to Extract Texts from Links
 ![z3Xf3Co](https://i.imgur.com/z3Xf3Co.png)
 
 Cactus is a macOS app to extract texts from links.
