@@ -74,7 +74,7 @@ class window_about(QWidget):  # 增加说明页面(About)
 
 	def initUI(self):  # 说明页面内信息
 		self.setUpMainWindow()
-		self.resize(400, 380)
+		self.resize(400, 410)
 		self.center()
 		self.setWindowTitle('About')
 		self.setFocus()
@@ -110,7 +110,7 @@ class window_about(QWidget):  # 增加说明页面(About)
 		widg2.setLayout(blay2)
 
 		widg3 = QWidget()
-		lbl1 = QLabel('Version 0.0.2', self)
+		lbl1 = QLabel('Version 1.0.0', self)
 		blay3 = QHBoxLayout()
 		blay3.setContentsMargins(0, 0, 0, 0)
 		blay3.addStretch()
@@ -171,6 +171,19 @@ class window_about(QWidget):  # 增加说明页面(About)
 		blay8.addStretch()
 		widg8.setLayout(blay8)
 
+		bt7 = QPushButton('Buy me a cup of coffee☕', self)
+		bt7.setMaximumHeight(20)
+		bt7.setMinimumWidth(215)
+		bt7.clicked.connect(self.coffee)
+
+		widg8_5 = QWidget()
+		blay8_5 = QHBoxLayout()
+		blay8_5.setContentsMargins(0, 0, 0, 0)
+		blay8_5.addStretch()
+		blay8_5.addWidget(bt7)
+		blay8_5.addStretch()
+		widg8_5.setLayout(blay8_5)
+
 		widg9 = QWidget()
 		bt3 = QPushButton('🍪\n¥5', self)
 		bt3.setMaximumHeight(50)
@@ -220,6 +233,7 @@ class window_about(QWidget):  # 增加说明页面(About)
 		main_h_box.addWidget(widg6)
 		main_h_box.addWidget(widg7)
 		main_h_box.addWidget(widg8)
+		main_h_box.addWidget(widg8_5)
 		main_h_box.addWidget(widg9)
 		main_h_box.addWidget(widg10)
 		main_h_box.addStretch()
@@ -230,6 +244,9 @@ class window_about(QWidget):  # 增加说明页面(About)
 
 	def homepage(self):
 		webbrowser.open('https://github.com/Ryan-the-hito/Cactus')
+
+	def coffee(self):
+		webbrowser.open('https://www.buymeacoffee.com/ryanthehito')
 
 	def donate(self):
 		dlg = CustomDialog()
@@ -296,10 +313,10 @@ class CustomDialog(QDialog):  # (About1)
 		bt1.setMaximumHeight(20)
 		bt1.setMinimumWidth(100)
 		bt1.clicked.connect(self.cancel)
-		bt2 = QPushButton('Donate later~', self)
+		bt2 = QPushButton('Neither one above? Buy me a coffee~', self)
 		bt2.setMaximumHeight(20)
-		bt2.setMinimumWidth(100)
-		bt2.clicked.connect(self.cancel)
+		bt2.setMinimumWidth(260)
+		bt2.clicked.connect(self.coffee)
 		blay8 = QHBoxLayout()
 		blay8.setContentsMargins(0, 0, 0, 0)
 		blay8.addStretch()
@@ -322,6 +339,9 @@ class CustomDialog(QDialog):  # (About1)
 		cp = self.screen().availableGeometry().center()
 		qr.moveCenter(cp)
 		self.move(qr.topLeft())
+
+	def coffee(self):
+		webbrowser.open('https://www.buymeacoffee.com/ryanthehito')
 
 	def cancel(self):  # 设置取消键的功能
 		self.close()
@@ -366,10 +386,10 @@ class CustomDialog2(QDialog):  # (About2)
 		bt1.setMaximumHeight(20)
 		bt1.setMinimumWidth(100)
 		bt1.clicked.connect(self.cancel)
-		bt2 = QPushButton('Donate later~', self)
+		bt2 = QPushButton('Neither one above? Buy me a coffee~', self)
 		bt2.setMaximumHeight(20)
-		bt2.setMinimumWidth(100)
-		bt2.clicked.connect(self.cancel)
+		bt2.setMinimumWidth(260)
+		bt2.clicked.connect(self.coffee)
 		blay8 = QHBoxLayout()
 		blay8.setContentsMargins(0, 0, 0, 0)
 		blay8.addStretch()
@@ -392,6 +412,9 @@ class CustomDialog2(QDialog):  # (About2)
 		cp = self.screen().availableGeometry().center()
 		qr.moveCenter(cp)
 		self.move(qr.topLeft())
+
+	def coffee(self):
+		webbrowser.open('https://www.buymeacoffee.com/ryanthehito')
 
 	def cancel(self):  # 设置取消键的功能
 		self.close()
@@ -436,10 +459,10 @@ class CustomDialog3(QDialog):  # (About3)
 		bt1.setMaximumHeight(20)
 		bt1.setMinimumWidth(100)
 		bt1.clicked.connect(self.cancel)
-		bt2 = QPushButton('Donate later~', self)
+		bt2 = QPushButton('Neither one above? Buy me a coffee~', self)
 		bt2.setMaximumHeight(20)
-		bt2.setMinimumWidth(100)
-		bt2.clicked.connect(self.cancel)
+		bt2.setMinimumWidth(260)
+		bt2.clicked.connect(self.coffee)
 		blay8 = QHBoxLayout()
 		blay8.setContentsMargins(0, 0, 0, 0)
 		blay8.addStretch()
@@ -462,6 +485,9 @@ class CustomDialog3(QDialog):  # (About3)
 		cp = self.screen().availableGeometry().center()
 		qr.moveCenter(cp)
 		self.move(qr.topLeft())
+
+	def coffee(self):
+		webbrowser.open('https://www.buymeacoffee.com/ryanthehito')
 
 	def cancel(self):  # 设置取消键的功能
 		self.close()
@@ -506,10 +532,10 @@ class CustomDialog4(QDialog):  # (About4)
 		bt1.setMaximumHeight(20)
 		bt1.setMinimumWidth(100)
 		bt1.clicked.connect(self.cancel)
-		bt2 = QPushButton('Donate later~', self)
+		bt2 = QPushButton('Neither one above? Buy me a coffee~', self)
 		bt2.setMaximumHeight(20)
-		bt2.setMinimumWidth(100)
-		bt2.clicked.connect(self.cancel)
+		bt2.setMinimumWidth(260)
+		bt2.clicked.connect(self.coffee)
 		blay8 = QHBoxLayout()
 		blay8.setContentsMargins(0, 0, 0, 0)
 		blay8.addStretch()
@@ -533,6 +559,9 @@ class CustomDialog4(QDialog):  # (About4)
 		qr.moveCenter(cp)
 		self.move(qr.topLeft())
 
+	def coffee(self):
+		webbrowser.open('https://www.buymeacoffee.com/ryanthehito')
+
 	def cancel(self):  # 设置取消键的功能
 		self.close()
 
@@ -543,31 +572,41 @@ class window_update(QWidget):  # 增加更新页面（Check for Updates）
 		self.initUI()
 
 	def initUI(self):  # 说明页面内信息
-		lbl = QLabel('Current Version: 0.0.2', self)
-		lbl.move(110, 75)
+		lbl = QLabel('Current Version: 1.0.0', self)
+		lbl.move(110, 105)
 
 		lbl0 = QLabel('Check Now:', self)
 		lbl0.move(30, 20)
 
-		bt1 = QPushButton('Check Github', self)
+		bt1 = QPushButton('Google Drive', self)
+		bt1.setFixedWidth(120)
 		bt1.clicked.connect(self.upd)
 		bt1.move(110, 15)
 
-		bt2 = QPushButton('Check Baidu Net Disk', self)
-		bt2.clicked.connect(self.upd2)
-		bt2.move(110, 45)
+		bt3 = QPushButton('Dropbox', self)
+		bt3.setFixedWidth(120)
+		bt3.clicked.connect(self.upd3)
+		bt3.move(110, 45)
 
-		self.resize(300, 110)
+		bt2 = QPushButton('Baidu Netdisk', self)
+		bt2.setFixedWidth(120)
+		bt2.clicked.connect(self.upd2)
+		bt2.move(110, 75)
+
+		self.resize(300, 140)
 		self.center()
 		self.setWindowTitle('Check for Updates')
 		self.setFocus()
 		self.setWindowFlags(Qt.WindowType.WindowStaysOnTopHint)
 
 	def upd(self):
-		webbrowser.open('https://github.com/Ryan-the-hito/Cactus/releases')
+		webbrowser.open('https://drive.google.com/drive/folders/134m83zEDKRpUGZg3U6sdM1nY_8Zi_ys1?usp=sharing')
 
 	def upd2(self):
 		webbrowser.open('https://pan.baidu.com/s/1LvzcoTGl0B2wB5W3nlRLsw?pwd=jsyn')
+
+	def upd3(self):
+		webbrowser.open('https://www.dropbox.com/scl/fo/2utdw84s1y7dl0fbn36a2/h?rlkey=msf7etuoo9oza0qn6fhdyqmv7&dl=0')
 
 	def center(self):  # 设置窗口居中
 		qr = self.frameGeometry()
