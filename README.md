@@ -29,6 +29,10 @@ Cactus 当然可以复制一个链接中的全部文本，但更关键的是，�
   <img src="https://i.imgur.com/sWrcqeu.png" width=400 />
 </p>
 
+## DEMO
+
+https://github.com/Ryan-the-hito/Cactus/assets/95213517/a26ae65e-90ec-41d5-b352-e2bcf1d38156
+
 ## 环境要求
 
 - MacOS 11 及以上（测试环境为 MacOS 12.6.5）
