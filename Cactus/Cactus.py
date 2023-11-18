@@ -18,6 +18,12 @@ import sys
 import subprocess
 import time
 import pyautogui
+import urllib3
+import logging
+import requests
+import html2text
+import re
+from bs4 import BeautifulSoup
 
 
 app = QApplication(sys.argv)
@@ -110,7 +116,7 @@ class window_about(QWidget):  # 增加说明页面(About)
 		widg2.setLayout(blay2)
 
 		widg3 = QWidget()
-		lbl1 = QLabel('Version 1.0.0', self)
+		lbl1 = QLabel('Version 1.0.1', self)
 		blay3 = QHBoxLayout()
 		blay3.setContentsMargins(0, 0, 0, 0)
 		blay3.addStretch()
@@ -572,30 +578,36 @@ class window_update(QWidget):  # 增加更新页面（Check for Updates）
 		self.initUI()
 
 	def initUI(self):  # 说明页面内信息
-		lbl = QLabel('Current Version: 1.0.0', self)
-		lbl.move(110, 105)
+		self.lbl = QLabel('Current Version: v1.0.1', self)
+		self.lbl.move(30, 45)
 
-		lbl0 = QLabel('Check Now:', self)
-		lbl0.move(30, 20)
+		lbl0 = QLabel('Download Update:', self)
+		lbl0.move(30, 75)
+
+		lbl1 = QLabel('Latest Version:', self)
+		lbl1.move(30, 15)
+
+		self.lbl2 = QLabel('', self)
+		self.lbl2.move(122, 15)
 
 		bt1 = QPushButton('Google Drive', self)
 		bt1.setFixedWidth(120)
 		bt1.clicked.connect(self.upd)
-		bt1.move(110, 15)
+		bt1.move(150, 75)
 
 		bt3 = QPushButton('Dropbox', self)
 		bt3.setFixedWidth(120)
 		bt3.clicked.connect(self.upd3)
-		bt3.move(110, 45)
+		bt3.move(150, 105)
 
 		bt2 = QPushButton('Baidu Netdisk', self)
 		bt2.setFixedWidth(120)
 		bt2.clicked.connect(self.upd2)
-		bt2.move(110, 75)
+		bt2.move(150, 135)
 
-		self.resize(300, 140)
+		self.resize(300, 180)
 		self.center()
-		self.setWindowTitle('Check for Updates')
+		self.setWindowTitle('Cactus Updates')
 		self.setFocus()
 		self.setWindowFlags(Qt.WindowType.WindowStaysOnTopHint)
 
@@ -616,6 +628,54 @@ class window_update(QWidget):  # 增加更新页面（Check for Updates）
 
 	def activate(self):  # 设置窗口显示
 		self.show()
+		self.checkupdate()
+
+	def checkupdate(self):
+		targetURL = 'https://github.com/Ryan-the-hito/Cactus/releases'
+		try:
+			# Fetch the HTML content from the URL
+			urllib3.disable_warnings()
+			logging.captureWarnings(True)
+			s = requests.session()
+			s.keep_alive = False  # 关闭多余连接
+			response = s.get(targetURL, verify=False)
+			response.encoding = 'utf-8'
+			html_content = response.text
+			# Parse the HTML using BeautifulSoup
+			soup = BeautifulSoup(html_content, "html.parser")
+			# Remove all images from the parsed HTML
+			for img in soup.find_all("img"):
+				img.decompose()
+			# Convert the parsed HTML to plain text using html2text
+			text_maker = html2text.HTML2Text()
+			text_maker.ignore_links = True
+			text_maker.ignore_images = True
+			plain_text = text_maker.handle(str(soup))
+			# Convert the plain text to UTF-8
+			plain_text_utf8 = plain_text.encode(response.encoding).decode("utf-8")
+
+			for i in range(10):
+				plain_text_utf8 = plain_text_utf8.replace('\n\n\n\n', '\n\n')
+				plain_text_utf8 = plain_text_utf8.replace('\n\n\n', '\n\n')
+				plain_text_utf8 = plain_text_utf8.replace('   ', ' ')
+				plain_text_utf8 = plain_text_utf8.replace('  ', ' ')
+
+			pattern2 = re.compile(r'(v\d+\.\d+\.\d+)\sLatest')
+			result = pattern2.findall(plain_text_utf8)
+			result = ''.join(result)
+			nowversion = self.lbl.text().replace('Current Version: ', '')
+			if result == nowversion:
+				alertupdate = result + '. You are up to date!'
+				self.lbl2.setText(alertupdate)
+				self.lbl2.adjustSize()
+			else:
+				alertupdate = result + ' is ready!'
+				self.lbl2.setText(alertupdate)
+				self.lbl2.adjustSize()
+		except:
+			alertupdate = 'No Intrenet'
+			self.lbl2.setText(alertupdate)
+			self.lbl2.adjustSize()
 
 class window3(QWidget):  # 主窗口
 	def __init__(self):
