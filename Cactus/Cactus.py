@@ -116,7 +116,7 @@ class window_about(QWidget):  # 增加说明页面(About)
 		widg2.setLayout(blay2)
 
 		widg3 = QWidget()
-		lbl1 = QLabel('Version 1.0.2', self)
+		lbl1 = QLabel('Version 1.0.3', self)
 		blay3 = QHBoxLayout()
 		blay3.setContentsMargins(0, 0, 0, 0)
 		blay3.addStretch()
@@ -578,7 +578,7 @@ class window_update(QWidget):  # 增加更新页面（Check for Updates）
 		self.initUI()
 
 	def initUI(self):  # 说明页面内信息
-		self.lbl = QLabel('Current Version: v1.0.2', self)
+		self.lbl = QLabel('Current Version: v1.0.3', self)
 		self.lbl.move(30, 45)
 
 		lbl0 = QLabel('Download Update:', self)
@@ -761,8 +761,15 @@ class window3(QWidget):  # 主窗口
 		BetTime = float(codecs.open('/Applications/Cactus.app/Contents/Resources/BetTime.txt', 'r', encoding='utf-8').read())
 		time.sleep(BetTime)
 		
-		# Simulate Command+C shortcut
-		pyautogui.hotkey('command', 'c')
+		applescript = """
+            tell application "System Events"
+                key code 8 using {command down}
+            end tell
+        """
+		subprocess.call(["osascript", "-e", applescript])
+
+		TetTime = float(codecs.open('/Applications/Cactus.app/Contents/Resources/TetTime.txt', 'r', encoding='utf-8').read())
+		time.sleep(TetTime)
 		
 		# Copy to plaintext
 		a = subprocess.check_output('pbpaste', env={'LANG': 'en_US.UTF-8'}).decode('utf-8')
@@ -795,7 +802,7 @@ class window4(QWidget):  # Customization settings
 	
 	def initUI(self):  # 设置窗口内布局
 		self.setUpMainWindow()
-		self.setFixedSize(500, 220)
+		self.setFixedSize(500, 240)
 		self.center()
 		self.setWindowTitle('Customization settings')
 		self.setFocus()
@@ -815,6 +822,13 @@ class window4(QWidget):  # Customization settings
 		self.le2.setPlaceholderText('Numbers only, can be decimal. Default=0.0')
 		text = codecs.open('/Applications/Cactus.app/Contents/Resources/BetTime.txt', 'r', encoding='utf-8').read()
 		self.le2.setText(text)
+
+		self.lbl3 = QLabel('Seconds between copy and display: ', self)
+		
+		self.le3 = QLineEdit(self)
+		self.le3.setPlaceholderText('Numbers only, can be decimal. Default=0.5')
+		text = codecs.open('/Applications/Cactus.app/Contents/Resources/TetTime.txt', 'r', encoding='utf-8').read()
+		self.le3.setText(text)
 		
 		self.btn_1 = QPushButton('Save', self)
 		self.btn_1.clicked.connect(self.SetTime)
@@ -834,7 +848,11 @@ class window4(QWidget):  # Customization settings
 		vbox2.addWidget(self.le1)
 		vbox2.addWidget(self.lbl2)
 		vbox2.addWidget(self.le2)
+		vbox2.addWidget(self.lbl3)
+		vbox2.addWidget(self.le3)
+		vbox2.addStretch()
 		vbox2.addWidget(qw1)
+		vbox2.addStretch()
 		self.setLayout(vbox2)
 	
 	def SetTime(self):
@@ -846,6 +864,10 @@ class window4(QWidget):  # Customization settings
 			BetTime = str(float(self.le2.text()))
 			with open("/Applications/Cactus.app/Contents/Resources/BetTime.txt", 'w', encoding='utf-8') as f0:
 				f0.write(BetTime)
+		if self.le3.text() != '':
+			TetTime = str(float(self.le3.text()))
+			with open("/Applications/Cactus.app/Contents/Resources/TetTime.txt", 'w', encoding='utf-8') as f0:
+				f0.write(TetTime)
 			self.close()
 	
 	def center(self):  # 设置窗口居中
