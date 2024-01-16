@@ -3,7 +3,7 @@
 
 block_cipher = None
 
-__version__ = '1.0.3'
+__version__ = '1.0.4'
 
 info_plist = {
     'LSUIElement': True,

@@ -23,6 +23,7 @@ import logging
 import requests
 import html2text
 import re
+import applescript
 from bs4 import BeautifulSoup
 
 
@@ -116,7 +117,7 @@ class window_about(QWidget):  # 增加说明页面(About)
 		widg2.setLayout(blay2)
 
 		widg3 = QWidget()
-		lbl1 = QLabel('Version 1.0.3', self)
+		lbl1 = QLabel('Version 1.0.4', self)
 		blay3 = QHBoxLayout()
 		blay3.setContentsMargins(0, 0, 0, 0)
 		blay3.addStretch()
@@ -578,7 +579,7 @@ class window_update(QWidget):  # 增加更新页面（Check for Updates）
 		self.initUI()
 
 	def initUI(self):  # 说明页面内信息
-		self.lbl = QLabel('Current Version: v1.0.3', self)
+		self.lbl = QLabel('Current Version: v1.0.4', self)
 		self.lbl.move(30, 45)
 
 		lbl0 = QLabel('Download Update:', self)
@@ -753,6 +754,14 @@ class window3(QWidget):  # 主窗口
 		else:
 			n = int(text)
 		time.sleep(n)
+
+		resp = applescript.tell.app("System Events", """
+			tell application "System Events"
+				set frontApp to name of first application process whose frontmost is true
+				return frontApp
+			end tell""")
+		assert resp.code == 0, resp.err
+		frontApp = str(resp.out)
 		
 		# Right click at the current mouse position
 		pyautogui.mouseDown(button='right')
@@ -760,13 +769,23 @@ class window3(QWidget):  # 主窗口
 
 		BetTime = float(codecs.open('/Applications/Cactus.app/Contents/Resources/BetTime.txt', 'r', encoding='utf-8').read())
 		time.sleep(BetTime)
+
+		script = """
+		tell application "System Events"
+			tell application %s
+				activate
+			end tell
+		end tell""" % frontApp
+		subprocess.call(["osascript", "-e", script])
+
+		# # Simulate Command+C shortcut
+		# pyautogui.hotkey('command', 'c')
 		
-		applescript = """
+		script2 = """
             tell application "System Events"
                 key code 8 using {command down}
-            end tell
-        """
-		subprocess.call(["osascript", "-e", applescript])
+            end tell"""
+		subprocess.call(["osascript", "-e", script2])
 
 		TetTime = float(codecs.open('/Applications/Cactus.app/Contents/Resources/TetTime.txt', 'r', encoding='utf-8').read())
 		time.sleep(TetTime)
@@ -819,7 +838,7 @@ class window4(QWidget):  # Customization settings
 		self.lbl2 = QLabel('Seconds between right click and copy: ', self)
 		
 		self.le2 = QLineEdit(self)
-		self.le2.setPlaceholderText('Numbers only, can be decimal. Default=0.0')
+		self.le2.setPlaceholderText('Numbers only, can be decimal. Default=0.5')
 		text = codecs.open('/Applications/Cactus.app/Contents/Resources/BetTime.txt', 'r', encoding='utf-8').read()
 		self.le2.setText(text)
 
