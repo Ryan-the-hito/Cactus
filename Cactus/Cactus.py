@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/local/bin/python3.11
 # -*- coding: utf-8 -*-
 # -*- encoding:UTF-8 -*-
 # coding=utf-8
@@ -116,7 +116,7 @@ class window_about(QWidget):  # 增加说明页面(About)
 		widg2.setLayout(blay2)
 
 		widg3 = QWidget()
-		lbl1 = QLabel('Version 1.0.1', self)
+		lbl1 = QLabel('Version 1.0.2', self)
 		blay3 = QHBoxLayout()
 		blay3.setContentsMargins(0, 0, 0, 0)
 		blay3.addStretch()
@@ -222,7 +222,7 @@ class window_about(QWidget):  # 增加说明页面(About)
 		widg9.setLayout(blay9)
 
 		widg10 = QWidget()
-		lbl6 = QLabel('© 2023 Ryan-the-hito. All rights reserved.', self)
+		lbl6 = QLabel('© 2023-2024 Ryan-the-hito. All rights reserved.', self)
 		blay10 = QHBoxLayout()
 		blay10.setContentsMargins(0, 0, 0, 0)
 		blay10.addStretch()
@@ -578,7 +578,7 @@ class window_update(QWidget):  # 增加更新页面（Check for Updates）
 		self.initUI()
 
 	def initUI(self):  # 说明页面内信息
-		self.lbl = QLabel('Current Version: v1.0.1', self)
+		self.lbl = QLabel('Current Version: v1.0.2', self)
 		self.lbl.move(30, 45)
 
 		lbl0 = QLabel('Download Update:', self)
@@ -757,6 +757,9 @@ class window3(QWidget):  # 主窗口
 		# Right click at the current mouse position
 		pyautogui.mouseDown(button='right')
 		pyautogui.mouseUp(button='right')
+
+		BetTime = float(codecs.open('/Applications/Cactus.app/Contents/Resources/BetTime.txt', 'r', encoding='utf-8').read())
+		time.sleep(BetTime)
 		
 		# Simulate Command+C shortcut
 		pyautogui.hotkey('command', 'c')
@@ -792,7 +795,7 @@ class window4(QWidget):  # Customization settings
 	
 	def initUI(self):  # 设置窗口内布局
 		self.setUpMainWindow()
-		self.setFixedSize(500, 120)
+		self.setFixedSize(500, 220)
 		self.center()
 		self.setWindowTitle('Customization settings')
 		self.setFocus()
@@ -805,6 +808,13 @@ class window4(QWidget):  # Customization settings
 		self.le1.setPlaceholderText('Numbers only, no decimal. Default=0')
 		text = codecs.open('/Applications/Cactus.app/Contents/Resources/SetTime.txt', 'r', encoding='utf-8').read()
 		self.le1.setText(text)
+
+		self.lbl2 = QLabel('Seconds between right click and copy: ', self)
+		
+		self.le2 = QLineEdit(self)
+		self.le2.setPlaceholderText('Numbers only, can be decimal. Default=0.0')
+		text = codecs.open('/Applications/Cactus.app/Contents/Resources/BetTime.txt', 'r', encoding='utf-8').read()
+		self.le2.setText(text)
 		
 		self.btn_1 = QPushButton('Save', self)
 		self.btn_1.clicked.connect(self.SetTime)
@@ -822,6 +832,8 @@ class window4(QWidget):  # Customization settings
 		vbox2.setContentsMargins(20, 20, 20, 20)
 		vbox2.addWidget(self.lbl1)
 		vbox2.addWidget(self.le1)
+		vbox2.addWidget(self.lbl2)
+		vbox2.addWidget(self.le2)
 		vbox2.addWidget(qw1)
 		self.setLayout(vbox2)
 	
@@ -830,6 +842,10 @@ class window4(QWidget):  # Customization settings
 			SetTime = str(int(self.le1.text()))
 			with open("/Applications/Cactus.app/Contents/Resources/SetTime.txt", 'w', encoding='utf-8') as f0:
 				f0.write(SetTime)
+		if self.le2.text() != '':
+			BetTime = str(float(self.le2.text()))
+			with open("/Applications/Cactus.app/Contents/Resources/BetTime.txt", 'w', encoding='utf-8') as f0:
+				f0.write(BetTime)
 			self.close()
 	
 	def center(self):  # 设置窗口居中
@@ -843,6 +859,10 @@ class window4(QWidget):  # Customization settings
 			self.close()
 	
 	def activate(self):  # 设置窗口显示
+		w2.checkupdate()
+		if w2.lbl2.text() != 'No Intrenet' and 'ready' in w2.lbl2.text():
+			w2.show()
+		
 		self.show()
 		self.setFocus()
 		self.raise_()
